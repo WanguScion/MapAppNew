@@ -1,0 +1,5 @@
+first i will have to create a tile server that sends over the relevant tiles based on position of view and zoom level
+
+i will use the OSM tile server at :: https://tile.openstreetmap.org/{z}/{x}/{y}.png                                         This tile server uses OSM vector data to generate png images and serve them. I plan to use OSM vector data in the final version too, but i will use my own tile processor and server to account for load and scalability and also control and efficiency.
+
+fetching and displaying images on a canvas
