@@ -43,9 +43,9 @@ function updateCanvas() {
   if (input.canPan) {
     drawPosnX += input.mouseX - input.mousePrevX;
     drawPosnY += input.mouseY - input.mousePrevY;
-    input.mousePrevX = input.mouseX;
-    input.mousePrevY = input.mouseY;
   }
+  input.mousePrevX = input.mouseX;
+  input.mousePrevY = input.mouseY;
   c.drawImage(img, 0, 0, 256, 256, drawPosnX, drawPosnY, 256, 256);
   requestAnimationFrame(updateCanvas);
 }
