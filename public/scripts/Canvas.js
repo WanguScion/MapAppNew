@@ -1,32 +1,36 @@
 import { InputHandler } from "./Classes.js";
 
+//declarations
+const canvasWidth = 1200;
+const canvasHeight = 600;
+
 var canvas = document.querySelector("canvas");
-canvas.width = 0.8 * window.innerWidth;
-canvas.height = 0.8 * window.innerHeight;
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+
+let drawPosnX = 0;
+let drawPosnY = 0;
 
 const input = new InputHandler();
+var c = canvas.getContext("2d");
 
-// Controls
+// Controls Listeners
 canvas.addEventListener("mousedown", (event) => {
   if (event.button === 0) {
     input.canPan = true;
   }
 });
-canvas.addEventListener("mouseup", (event) => {
+window.addEventListener("mouseup", (event) => {
   if (event.button === 0) {
     input.canPan = false;
   }
 });
-
 canvas.addEventListener("mousemove", (event) => {
-  if (input.canPan === true) {
-    //updates the input object
-    input.mouseX = event.clientX;
-    input.mouseY = event.clientY;
-  }
+  input.mousePrevX = input.mouseX;
+  input.mousePrevY = input.mouseY;
+  input.mouseX = event.clientX;
+  input.mouseY = event.clientY;
 });
-
-var c = canvas.getContext("2d");
 
 // Call images from tile server
 const img = new Image();
@@ -35,7 +39,14 @@ img.src = "https://tile.openstreetmap.org/0/0/0.png";
 // Draw On Canvas
 function updateCanvas() {
   c.clearRect(0, 0, innerWidth, innerHeight);
-  c.drawImage(img, 0, 0, 256, 256, input.mouseX, input.mouseY, 600, 600);
+  // Controls Calc
+  if (input.canPan) {
+    drawPosnX += input.mouseX - input.mousePrevX;
+    drawPosnY += input.mouseY - input.mousePrevY;
+    input.mousePrevX = input.mouseX;
+    input.mousePrevY = input.mouseY;
+  }
+  c.drawImage(img, 0, 0, 256, 256, drawPosnX, drawPosnY, 256, 256);
   requestAnimationFrame(updateCanvas);
 }
 requestAnimationFrame(updateCanvas);
