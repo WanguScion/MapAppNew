@@ -2,12 +2,47 @@
     margin: 0;
     padding: 0;
 }
+
 .container {
+    position: relative; /* This is the anchor for the buttons */
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 canvas {
     background-color: white;
     border: 2px solid black;
+    display: block; /* Removes the tiny gap at the bottom of inline elements */
+}
+
+.controls {
+    position: absolute;
+    bottom: 2px; /* Sits right against the bottom inner border */
+    right: 2px; /* Sits right against the right inner border */
+    display: flex;
+    flex-direction: column; /* Stacks them vertically */
+}
+
+.zoomIn {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly see-through */
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
+    border-bottom: none;
+}
+
+.zoomOut {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly see-through */
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
 }
