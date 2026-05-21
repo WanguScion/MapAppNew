@@ -1,21 +1,22 @@
-//Core modules
-const path = require("path");
+//Imports
+const express = require('express');
+const pU = require('./src/utils/pathUtil');
 
-//External modules
-const express = require("express");
+//My Modules
+const { homeController } = require(pU.path.join(pU.rootDir, 'src', 'controllers', 'homeController'));
 
-const dir = __dirname;
+//Declarations
 const app = express();
 
-app.use(express.static(path.join(dir, "public")));
+app.use(express.static(pathUtil.path.join(pathUtil.rootDir, 'public')));
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(dir, "public", "views", "CanvasTest.html"));
+//routers
+app.use('/home', homeController);
+app.use('/', (req, res, next) => {
+    res.redirect(301, '/home');
 });
 
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on address http://localhost:${PORT}`);
 });
-
-module.exports.dir = __dirname;
